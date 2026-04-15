@@ -1,0 +1,11 @@
+{
+  "apiBaseUrl": "https://api.kryonia.com.br",
+  "bindingCode": "",
+  "chatAppName": "Chat Desktop",
+  "welcomeMessage": "Ola, posso ajudar?",
+  "placeholder": "Digite sua pergunta",
+  "primaryColor": "#C8A64F",
+  "iconUrl": null,
+  "logoUrl": null,
+  "showPoweredBy": true
+}

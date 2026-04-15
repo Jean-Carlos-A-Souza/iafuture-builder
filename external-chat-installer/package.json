@@ -1,0 +1,49 @@
+{
+  "name": "chat-desktop-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop Windows chat app",
+  "author": "Chat Desktop",
+  "main": "src/main.js",
+  "scripts": {
+    "dev:renderer": "vite --config vite.config.mjs",
+    "build:renderer": "vite build --config vite.config.mjs",
+    "electron:start": "npm run build:renderer && electron .",
+    "electron:dist": "npm run build:renderer && electron-builder --win portable",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
+    "start": "npm run tauri:dev",
+    "dist": "npm run tauri:build"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.1",
+    "electron": "^37.2.0",
+    "electron-builder": "^25.1.8",
+    "vite": "^5.4.19"
+  },
+  "build": {
+    "appId": "br.com.kryonia.externalchat",
+    "productName": "Chat Desktop",
+    "executableName": "Chat Desktop",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "chat-app.config.json"
+    ],
+    "win": {
+      "icon": "src/renderer/assets/icon.ico",
+      "target": [
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "${productName} - ${version}.${ext}"
+    }
+  }
+}

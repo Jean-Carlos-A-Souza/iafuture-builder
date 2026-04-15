@@ -1,0 +1,16 @@
+# Dependências
+external-chat-installer/node_modules/
+external-chat-installer/src-tauri/target/
+external-chat-installer/src/renderer-dist/
+
+# Artefatos de build
+*.exe
+*.msi
+*.zip
+dist/
+
+# Cache de instalação
+/tmp/
+
+# Ambiente
+.env

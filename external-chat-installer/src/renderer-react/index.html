@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#090b0f" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <title>Chat Desktop</title>
+    <script src="./config.js"></script>
+    <script src="./bridge.js"></script>
+    <script>
+      const config = window.KRYON_DESKTOP_CONFIG || {};
+      const root = document.documentElement;
+      if (config.chatAppName) {
+        document.title = config.chatAppName;
+      }
+
+      if (config.primaryColor) {
+        root.style.setProperty('--primary-color', config.primaryColor);
+      }
+      if (config.primaryColor) {
+        root.style.setProperty('--bootstrap-accent', config.primaryColor);
+      }
+    </script>
+    <style>
+      :root {
+        --bootstrap-bg: #090b0f;
+        --bootstrap-text: #f5f7fa;
+        --bootstrap-muted: rgba(230, 235, 242, 0.72);
+        --bootstrap-accent: #c8a64f;
+      }
+
+      * { box-sizing: border-box; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at top, color-mix(in srgb, var(--bootstrap-accent) 18%, transparent), transparent 34%),
+          linear-gradient(180deg, #07080a 0%, #0b0e13 50%, #090b0f 100%);
+        color: var(--bootstrap-text);
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      }
+
+      #root {
+        width: 100%;
+        height: 100%;
+      }
+
+      .bootstrap-splash {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        overflow: hidden;
+      }
+
+      .bootstrap-splash__inner {
+        width: min(420px, 100%);
+        display: grid;
+        justify-items: center;
+        gap: 14px;
+        text-align: center;
+      }
+
+      .bootstrap-splash__avatar {
+        width: 78px;
+        height: 78px;
+        border-radius: 22px;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.28);
+      }
+
+      .bootstrap-splash__avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .bootstrap-splash__avatar-text {
+        font-size: 36px;
+        font-weight: 900;
+        line-height: 1;
+        color: transparent;
+        background: linear-gradient(180deg, color-mix(in srgb, white 84%, var(--bootstrap-accent) 16%) 0%, var(--bootstrap-accent) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .bootstrap-splash__title {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .bootstrap-splash__copy {
+        margin: 0;
+        color: var(--bootstrap-muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .bootstrap-splash__loader {
+        display: inline-flex;
+        gap: 8px;
+      }
+
+      .bootstrap-splash__loader span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, color-mix(in srgb, white 14%, var(--bootstrap-accent)), var(--bootstrap-accent));
+        animation: bootstrap-pulse 1s ease-in-out infinite;
+      }
+
+      .bootstrap-splash__loader span:nth-child(2) { animation-delay: 0.14s; }
+      .bootstrap-splash__loader span:nth-child(3) { animation-delay: 0.28s; }
+
+      @keyframes bootstrap-pulse {
+        0%, 80%, 100% { transform: scale(0.84); opacity: 0.4; }
+        40% { transform: scale(1); opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="bootstrap-splash">
+        <div class="bootstrap-splash__inner">
+          <div class="bootstrap-splash__avatar">
+            <span class="bootstrap-splash__avatar-text">K</span>
+          </div>
+          <h1 class="bootstrap-splash__title">Carregando...</h1>
+          <p class="bootstrap-splash__copy">Preparando seu ambiente...</p>
+          <div class="bootstrap-splash__loader" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const title = config.chatAppName || 'Chat Desktop';
+      const logo = config.iconUrl || config.logoUrl || '';
+      const titleNode = document.querySelector('.bootstrap-splash__title');
+      const avatar = document.querySelector('.bootstrap-splash__avatar');
+
+      if (titleNode) {
+        titleNode.textContent = title;
+      }
+
+      if (avatar && logo) {
+        avatar.innerHTML = '<img alt="Logo do sistema" />';
+        avatar.querySelector('img').src = logo;
+      }
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  </html>
